@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .main {
+    @apply min-h-screen py-16 px-0 flex flex-1 flex-col justify-start text-center;
+  }
+}
+
 html,
 body {
   padding: 0;
