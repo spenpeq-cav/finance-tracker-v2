@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { usePlaidLink } from 'react-plaid-link';
-import Image from "next/image";
-import styles from "../styles/Layout.module.css";
+import Link from "../components/Link";
 
 const Home: NextPage = () => {
   const [linkToken, setLinkToken] = useState(null);
@@ -37,7 +35,8 @@ const Home: NextPage = () => {
         >
           Link Token
         </button>
-        { linkToken && <p className="text-white">{linkToken}</p>}
+        {linkToken && <p className="text-white">{linkToken}</p>}
+        {linkToken != null ? <Link linkToken={linkToken} /> : <></>}
       </main>
     </div>
   );
