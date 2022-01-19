@@ -2,7 +2,8 @@ import React from "react";
 
 const LoginForm = () => {
   return (
-    <div className="w-full">
+    <div className="w-1/2 m-auto">
+      <h1 className="text-cyan-500 font-bold text-3xl pb-4">LOGIN</h1>
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label
