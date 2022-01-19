@@ -5,7 +5,19 @@ import Head from "next/head";
 import Link from "../components/Link";
 import prisma from "../lib/prisma";
 
-const Home: NextPage = () => {
+export type UserProps = {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type Props = {
+  users: UserProps[]
+}
+
+const Home: NextPage<Props> = (props) => {
   const [linkToken, setLinkToken] = useState(null);
   const [testData, setTestData] = useState(null);
 
@@ -40,6 +52,13 @@ const Home: NextPage = () => {
         </button>
         {linkToken && <p className="text-white">{linkToken}</p>}
         {linkToken != null ? <Link linkToken={linkToken} /> : <></>}
+        {props.users.map((user: any) => (
+          <div key={user.id} className="post">
+            <p className="text-white">
+              {user.name} | {user.email} | {user.createdAt.toString()} | {user.updatedAt.toString()}
+            </p>
+          </div>
+        ))}
       </main>
     </div>
   );
