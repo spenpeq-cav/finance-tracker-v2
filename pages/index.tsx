@@ -1,10 +1,13 @@
 import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "../components/Link";
+import prisma from "../lib/prisma";
 
 const Home: NextPage = () => {
   const [linkToken, setLinkToken] = useState(null);
+  const [testData, setTestData] = useState(null);
 
   const getLinkToken = async () => {
     const response = await fetch("/api/create_link_token", {
@@ -40,6 +43,13 @@ const Home: NextPage = () => {
       </main>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const users = await prisma.user.findMany();
+  return {
+    props: { users },
+  };
 };
 
 export default Home;
