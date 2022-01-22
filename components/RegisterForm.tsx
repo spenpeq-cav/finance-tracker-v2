@@ -5,6 +5,7 @@ const RegisterForm = () => {
     name: "",
     email: "",
     password: "",
+    password_2: "",
   };
 
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
@@ -22,11 +23,13 @@ const RegisterForm = () => {
     if (
       formData.name !== "" &&
       formData.email !== "" &&
-      formData.password !== ""
+      formData.password !== "" &&
+      formData.password_2 !== "" &&
+      formData.password === formData.password_2
     ) {
       console.log(formData);
     } else {
-      console.log("Fill out field");
+      console.log("Fill out field or passwords dont match");
     }
   };
 
@@ -86,6 +89,24 @@ const RegisterForm = () => {
           />
           <p className="text-red-500 text-xs italic">
             Please choose a password.
+          </p>
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password_2"
+          >
+            Re-enter Password
+          </label>
+          <input
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password_2"
+            type="password"
+            placeholder="******************"
+            onChange={handleInputChange}
+          />
+          <p className="text-red-500 text-xs italic">
+            Please re-enter password.
           </p>
         </div>
         <div className="flex items-center justify-between">
