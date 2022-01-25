@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
+import { useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import prisma from "../lib/prisma";
 
 interface LinkProps {
   linkToken: string | null;
 }
+
 const Link: React.FC<LinkProps> = (props: LinkProps) => {
   const [accessToken, setAccessToken] = useState(null);
   const [itemID, setItemID] = useState(null);
@@ -47,3 +51,12 @@ const Link: React.FC<LinkProps> = (props: LinkProps) => {
   );
 };
 export default Link;
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const dbUser = await prisma.user.findUnique({
+//     where: {
+//       id: "elsa@prisma.io",
+//     },
+//   });
+//   return { props: { dbUser } };
+// };
