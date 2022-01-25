@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
 import { useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
-import prisma from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 interface LinkProps {
   linkToken: string | null;
@@ -10,8 +10,8 @@ interface LinkProps {
 
 const Link: React.FC<LinkProps> = (props: LinkProps) => {
   const [accessToken, setAccessToken] = useState(null);
-  const [itemID, setItemID] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [itemID, setItemID] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const onSuccess = React.useCallback((public_token, metadata) => {
     // send public_token to server
@@ -24,7 +24,7 @@ const Link: React.FC<LinkProps> = (props: LinkProps) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMessage(data.message)
+        setMessage(data.message);
       });
   }, []);
 

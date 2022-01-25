@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import prisma from "../lib/prisma";
+import {prisma} from "../lib/prisma";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {

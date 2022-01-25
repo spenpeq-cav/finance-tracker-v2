@@ -2,6 +2,7 @@ import nextConnect from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Configuration, PlaidApi, PlaidEnvironments } from "plaid";
 import { getSession } from "next-auth/react";
+import { prisma } from "../../lib/prisma";
 
 const PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID;
 const PLAID_SECRET = process.env.PLAID_SECRET;
