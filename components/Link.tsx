@@ -10,7 +10,8 @@ interface LinkProps {
 
 const Link: React.FC<LinkProps> = (props: LinkProps) => {
   const [accessToken, setAccessToken] = useState(null);
-  const [itemID, setItemID] = useState(null);
+  const [itemID, setItemID] = useState(null)
+  const [message, setMessage] = useState(null)
 
   const onSuccess = React.useCallback((public_token, metadata) => {
     // send public_token to server
@@ -23,8 +24,7 @@ const Link: React.FC<LinkProps> = (props: LinkProps) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setAccessToken(data.accessToken);
-        setItemID(data.itemID);
+        setMessage(data.message)
       });
   }, []);
 
@@ -47,6 +47,7 @@ const Link: React.FC<LinkProps> = (props: LinkProps) => {
       </button>
       {accessToken && <p className="text-white">{accessToken}</p>}
       {itemID && <p className="text-white">{itemID}</p>}
+      {message && <p className="text-white">{message}</p>}
     </>
   );
 };

@@ -30,12 +30,7 @@ export default function Page() {
   }, [session]);
 
   // When rendering client side don't display anything until loading is complete
-  if (typeof window !== "undefined" && loading)
-    return (
-      <>
-        <h1 className="text-white">LOADING....</h1>
-      </>
-    );
+  if (typeof window !== "undefined" && loading) return null;
 
   // If no session exists, display access denied message
   if (!session) {
@@ -48,7 +43,7 @@ export default function Page() {
 
   // If session exists, display content
   return (
-    <>
+    <div>
       <h1 className="text-white">Protected Page</h1>
       <p className="text-white">
         <strong>{content || "\u00a0"}</strong>
@@ -61,6 +56,6 @@ export default function Page() {
       </button>
       {linkToken && <p className="text-white">{linkToken}</p>}
       {linkToken != null ? <Link linkToken={linkToken} /> : <></>}
-    </>
+    </div>
   );
 }

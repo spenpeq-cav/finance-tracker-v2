@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "../lib/prisma";
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -48,9 +49,16 @@ const Home: NextPage = () => {
         )}
         {session?.user && (
           <>
-            <span className="p-4 text-sky-100">
-              Signed in as{" "}
-              <strong>{session.user.email || session.user.name}</strong>
+            <span className="p-4 text-sky-100 relative">
+              Signed in as <strong>{session.user.email}</strong>
+              <br />
+              <strong>{session.user.name}</strong>
+              <br />
+              <Image
+                src={session.user.image!}
+                alt="Profile image"
+                layout="fill"
+              />
             </span>
             <a
               href={`/api/auth/signout`}
@@ -65,9 +73,7 @@ const Home: NextPage = () => {
           </>
         )}
         <Link href="/protected">
-          <a className="border border-white p-4 text-sky-100">
-            Protected
-          </a>
+          <a className="border border-white p-4 text-sky-100">Protected</a>
         </Link>
       </main>
     </div>

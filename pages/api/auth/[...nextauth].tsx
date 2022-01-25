@@ -13,10 +13,10 @@ export default NextAuth({
     }),
   ],
   secret: process.env.SECRET,
-  callbacks: {
-    async session({ session, user }) {
-      session.userId = user.id;
-      return session;
-    },
-  },
+  // callbacks: {
+  //   session: async ({ session, user }) => {
+  //     session.userId = user.id;
+  //     return Promise.resolve(session);
+  //   },
+  // },
 });

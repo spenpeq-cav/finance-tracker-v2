@@ -32,18 +32,18 @@ export default handler.post(async function (req, res, next) {
     const accessToken = response.data.access_token;
     const itemID = response.data.item_id;
 
-    const session = await getSession({req})
-    const userId  = session?.user?.userId;
+    const session = await getSession({ req });
+    // const { userId } = session?.user!;
+    const { email } = session?.user!;
 
     const addPlaidItem = await prisma.plaidItem.create({
       data: {
         accessToken: accessToken,
         itemId: itemID,
-        user: {connect: { id: userId } }
+        user: { connect: { email: email! } },
       },
-    })
-  
-    res.status(200).json({ accessToken: accessToken, itemID: itemID });
+    });
+    res.status(200).json({ message: "Successfully added account!" });
   } catch (error) {
     // handle error
     console.log(error);
