@@ -4,7 +4,15 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        "sidebar-width": "var(--sidebar-width)",
+        "content-width": "calc(100% - var(--sidebar-width))",
+      },
+      left: {
+        "content-left": "var(--sidebar-width)",
+      },
+    },
   },
   plugins: [],
 };

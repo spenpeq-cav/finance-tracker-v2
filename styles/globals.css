@@ -23,6 +23,9 @@
     active:bg-slate-600 active:text-slate-300 text-slate-200 hover:-translate-y-0.5 font-bold;
   }
 }
+:root {
+  --sidebar-width: 15rem;
+}
 
 html,
 body {

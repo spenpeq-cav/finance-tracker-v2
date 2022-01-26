@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import AccessDenied from "../components/AccessDenied";
-import Link from "../components/Link";
+import PlaidLink from "../components/PlaidLink";
+import Link from "next/link";
 
 export default function Page() {
   const { data: session, status } = useSession();
@@ -23,7 +24,7 @@ export default function Page() {
       method: "GET",
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     // setAccountData(data.plaidItems);
   };
 
@@ -70,8 +71,13 @@ export default function Page() {
       >
         Link Token
       </button>
+
+      <Link href="/dashboard">
+        <a className="btn btn-secondary py-4 px-12">Dashboard</a>
+      </Link>
+
       {linkToken && <p className="text-white">{linkToken}</p>}
-      {linkToken != null ? <Link linkToken={linkToken} /> : <></>}
+      {linkToken != null ? <PlaidLink linkToken={linkToken} /> : <></>}
       {accountData && <p className="text-white">{accountData}</p>}
     </div>
   );

@@ -8,7 +8,7 @@ interface LinkProps {
   linkToken: string | null;
 }
 
-const Link: React.FC<LinkProps> = (props: LinkProps) => {
+const PlaidLink: React.FC<LinkProps> = (props: LinkProps) => {
   const [accessToken, setAccessToken] = useState(null);
   const [itemID, setItemID] = useState(null);
   const [message, setMessage] = useState(null);
@@ -51,7 +51,7 @@ const Link: React.FC<LinkProps> = (props: LinkProps) => {
     </>
   );
 };
-export default Link;
+export default PlaidLink;
 
 // export const getServerSideProps: GetServerSideProps = async () => {
 //   const dbUser = await prisma.user.findUnique({
