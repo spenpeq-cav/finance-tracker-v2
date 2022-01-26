@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import {prisma} from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
@@ -20,61 +20,68 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1 className="text-5xl font-bold text-cyan-500 py-4">
-          Finance Tracker
-        </h1>
-        <p className="text-lg font-semibold text-cyan-500">
-          View all your accounts in one place, utilizing Plaid.
-        </p>
+        <div className="pt-60 m-auto">
+          <h1 className="text-7xl font-extrabold text-slate-50 py-4 tracking-wide">
+            Finance Tracker
+          </h1>
+          <p className="text-xl font-semibold text-slate-300 pb-2">
+            View all your financial data in one place.
+          </p>
+          <p className="text-sm font-semibold text-slate-300">
+            Made possible via the Plaid API. <a href="https://plaid.com/" className="text-lime-500 underline" target="_blank" rel="noopener noreferrer">Learn More</a>
+          </p>
 
-        {loading && (
-          <>
-            <h1 className="p-4 text-sky-100">LOADING ...</h1>
-          </>
-        )}
-        {!session && (
-          <div>
-            <span className="p-4 text-sky-100">You are not signed in.</span>
-            <a
-              href={`/api/auth/signin`}
-              className="border border-white p-4 text-sky-100"
-              onClick={(e) => {
-                e.preventDefault();
-                signIn();
-              }}
-            >
-              Sign in
-            </a>
+          {loading && (
+            <>
+              <h1 className="p-4 text-slate-100">LOADING ...</h1>
+            </>
+          )}
+          <div className="m-auto space-x-4">
+            {!session && (
+              <>
+                <p className="p-4 text-slate-100">You are not signed in.</p>
+                <a
+                  href={`/api/auth/signin`}
+                  className="btn btn-primary py-4 px-12"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signIn();
+                  }}
+                >
+                  Get Started
+                </a>
+              </>
+            )}
+            {session?.user && (
+              <>
+                <div className="p-4 text-slate-100 relative">
+                  Signed in as <strong>{session.user.email}</strong>
+                  <br />
+                  <strong>{session.user.name}</strong>
+                  <br />
+                  <Image
+                    src={session.user.image!}
+                    alt="Profile image"
+                    layout="fill"
+                  />
+                </div>
+                <a
+                  href={`/api/auth/signout`}
+                  className="btn btn-primary py-4 px-12"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signOut();
+                  }}
+                >
+                  Sign out
+                </a>
+              </>
+            )}
+            <Link href="/protected">
+              <a className="btn btn-secondary py-4 px-12">Protected</a>
+            </Link>
           </div>
-        )}
-        {session?.user && (
-          <>
-            <span className="p-4 text-sky-100 relative">
-              Signed in as <strong>{session.user.email}</strong>
-              <br />
-              <strong>{session.user.name}</strong>
-              <br />
-              <Image
-                src={session.user.image!}
-                alt="Profile image"
-                layout="fill"
-              />
-            </span>
-            <a
-              href={`/api/auth/signout`}
-              className="border border-white p-4 text-sky-100"
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
-            >
-              Sign out
-            </a>
-          </>
-        )}
-        <Link href="/protected">
-          <a className="border border-white p-4 text-sky-100">Protected</a>
-        </Link>
+        </div>
       </main>
     </div>
   );
