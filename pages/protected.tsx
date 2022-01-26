@@ -8,6 +8,7 @@ export default function Page() {
   const loading = status === "loading";
   const [content, setContent] = useState();
   const [linkToken, setLinkToken] = useState(null);
+  const [accountData, setAccountData] = useState(null);
 
   const getLinkToken = async () => {
     const response = await fetch("/api/create_link_token", {
@@ -15,6 +16,15 @@ export default function Page() {
     });
     const data = await response.json();
     setLinkToken(data.link_token);
+  };
+
+  const getAccounts = async () => {
+    const response = await fetch("/api/get_accounts", {
+      method: "GET",
+    });
+    const data = await response.json();
+    console.log(data)
+    // setAccountData(data.plaidItems);
   };
 
   // Fetch content from protected route
@@ -49,6 +59,12 @@ export default function Page() {
         <strong>{content || "\u00a0"}</strong>
       </p>
       <button
+        onClick={getAccounts}
+        className="text-cyan-900 border-2 p-6 border-cyan-500 mt-10 bg-slate-300"
+      >
+        GET ACCOUNTS
+      </button>
+      <button
         onClick={getLinkToken}
         className="text-cyan-900 border-2 p-6 border-cyan-500 mt-10 bg-slate-300"
       >
@@ -56,6 +72,7 @@ export default function Page() {
       </button>
       {linkToken && <p className="text-white">{linkToken}</p>}
       {linkToken != null ? <Link linkToken={linkToken} /> : <></>}
+      {accountData && <p className="text-white">{accountData}</p>}
     </div>
   );
 }
