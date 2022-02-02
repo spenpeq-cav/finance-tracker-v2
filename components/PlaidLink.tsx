@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
-import { useSession } from "next-auth/react";
-import { GetServerSideProps } from "next";
-import { prisma } from "../lib/prisma";
 
 interface LinkProps {
   linkToken: string | null;
@@ -15,7 +12,7 @@ const PlaidLink: React.FC<LinkProps> = (props: LinkProps) => {
 
   const onSuccess = React.useCallback((public_token, metadata) => {
     // send public_token to server
-    const response = fetch("/api/set_access_token", {
+    const response = fetch("/api/plaid/set_access_token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

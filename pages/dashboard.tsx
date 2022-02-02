@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import AccessDenied from "../components/AccessDenied";
 import Link from "next/link";
 import Nav from "../components/Nav";
+import NetWorth from "../components/NetWorth";
 
 const Dashboard: NextPage = () => {
   const { data: session, status } = useSession();
@@ -19,7 +20,7 @@ const Dashboard: NextPage = () => {
       if (json.content) {
         setContent(json.content);
       }
-      const response = await fetch("/api/get_accounts", {
+      const response = await fetch("/api/plaid/get_accounts", {
         method: "GET",
       });
       const data = await response.json();
@@ -35,7 +36,6 @@ const Dashboard: NextPage = () => {
     // };
     fetchData();
     // getAccounts();
-    console.log(accountData);
   }, [session]);
 
   // When rendering client side don't display anything until loading is complete
@@ -53,7 +53,7 @@ const Dashboard: NextPage = () => {
   // If session exists, display content
   return (
     <>
-      <div className="bg-slate-800 fixed top-0 left-0 overflow-auto pt-6 h-screen w-sidebar-width border-r-2 border-lime-600">
+      <div className="bg-slate-600 fixed top-0 left-0 overflow-auto pt-6 h-screen w-sidebar-width border-r-2 border-lime-600">
         <div className="flex flex-col">
           <h1 className="text-slate-200 font-bold text-3xl">Finance Tracker</h1>
           <ul className="mt-8 text-slate-200 font-semibold text-xl">
@@ -76,38 +76,14 @@ const Dashboard: NextPage = () => {
         </div>
       </div>
 
-      <div className="rounded-lg relative h-screen w-content-width left-60 p-24">
-        <div className="grid grid-cols-3 gap-4 justify-items-start">
-          <div className="col-span-3 ">
+      <div className="rounded-lg relative h-full w-content-width left-60 p-24">
+        <div className="grid grid-cols-4 gap-4 justify-items-start">
+          <div className="col-span-4 border-b-2 border-lime-600 pb-6">
             <h1 className="text-slate-200 font-extrabold text-5xl">
-              {session.user?.name}'s Dashboard
+              <span className="text-lime-200">{session.user?.name?.split(" ")[0]}&rsquo;s </span> Dashboard
             </h1>
           </div>
-          <div className="border-2 border-lime-600 rounded-lg bg-slate-800 p-4 w-full">
-            <p className="text-lime-600 text-5xl">
-              $ 75,000
-            </p>
-            <p className="text-rose-600 text-5xl">
-              - 30,000
-            </p>
-            <hr className="text-slate-200 my-2"/>
-            <p className="text-lime-400 font-extrabold text-6xl">
-              $ 30,000
-            </p>
-          </div>
-          <div className="border-2 border-lime-600 rounded-lg bg-slate-800">
-            <p className="text-slate-200">
-              <strong>{content || "\u00a0"}</strong>
-            </p>
-          </div>
-          <div className="text-slate-200 border-2 border-lime-600 rounded-lg bg-slate-800">
-            {accountData &&
-              accountData.map((acc) => (
-                <p key={acc.account_id}>
-                  {acc.name} | {acc.balances.current}
-                </p>
-              ))}
-          </div>
+          <NetWorth content={content} accountData={accountData} />
         </div>
       </div>
     </>

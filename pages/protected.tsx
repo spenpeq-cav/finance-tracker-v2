@@ -12,7 +12,7 @@ export default function Page() {
   const [accountData, setAccountData] = useState(null);
 
   const getLinkToken = async () => {
-    const response = await fetch("/api/create_link_token", {
+    const response = await fetch("/api/plaid/create_link_token", {
       method: "POST",
     });
     const data = await response.json();
@@ -20,7 +20,16 @@ export default function Page() {
   };
 
   const getAccounts = async () => {
-    const response = await fetch("/api/get_accounts", {
+    const response = await fetch("/api/plaid/get_accounts", {
+      method: "GET",
+    });
+    const data = await response.json();
+    console.log(data);
+    // setAccountData(data.plaidItems);
+  };
+
+  const getTransactions = async () => {
+    const response = await fetch("/api/plaid/get_transactions", {
       method: "GET",
     });
     const data = await response.json();
@@ -64,6 +73,12 @@ export default function Page() {
         className="text-cyan-900 border-2 p-6 border-cyan-500 mt-10 bg-slate-300"
       >
         GET ACCOUNTS
+      </button>
+      <button
+        onClick={getTransactions}
+        className="text-cyan-900 border-2 p-6 border-cyan-500 mt-10 bg-slate-300"
+      >
+        GET TRANSACTIONS
       </button>
       <button
         onClick={getLinkToken}
