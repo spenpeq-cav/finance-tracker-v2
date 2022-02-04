@@ -5,12 +5,14 @@ import AccessDenied from "../components/AccessDenied";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import NetWorth from "../components/NetWorth";
+import RecentTransactions from "../components/RecentTransactions";
 
 const Dashboard: NextPage = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
   const [content, setContent] = useState();
   const [accountData, setAccountData] = useState<any[]>([]);
+  const [transactionData, setTransactionData] = useState<any[]>([]);
 
   // Fetch content from protected route
   useEffect(() => {
@@ -20,12 +22,19 @@ const Dashboard: NextPage = () => {
       if (json.content) {
         setContent(json.content);
       }
+
       const response = await fetch("/api/plaid/get_accounts", {
         method: "GET",
       });
       const data = await response.json();
       const accounts = data.accounts;
       setAccountData(Array.from(accounts));
+
+      const transResponse = await fetch("/api/plaid/get_transactions", {
+        method: "GET",
+      });
+      const transData = await transResponse.json();
+      setTransactionData(transData);
     };
     // const getAccounts = async () => {
     //   const response = await fetch("/api/get_accounts", {
@@ -37,6 +46,10 @@ const Dashboard: NextPage = () => {
     fetchData();
     // getAccounts();
   }, [session]);
+
+  useEffect(() => {
+    console.log(transactionData)
+  }, [transactionData]);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;
@@ -84,6 +97,7 @@ const Dashboard: NextPage = () => {
             </h1>
           </div>
           <NetWorth content={content} accountData={accountData} />
+          <RecentTransactions transactionData={transactionData}/>
         </div>
       </div>
     </>
