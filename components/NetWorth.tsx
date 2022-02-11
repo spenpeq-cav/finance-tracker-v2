@@ -1,6 +1,6 @@
 interface Props {
   content: undefined;
-  accountData: any[];
+  accountsData: any[];
 }
 
 export default function NetWorth(props: Props) {
@@ -44,17 +44,17 @@ export default function NetWorth(props: Props) {
         <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
           $ 79,359.38
         </h1>
-        <h2 className="text-3xl pb-4 text-semibold text-slate-800">Liabilities</h2>
+        <h2 className="text-3xl pb-4 text-semibold text-slate-800">
+          Liabilities
+        </h2>
         <div className="grid grid-cols-2">
           <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
             <p>Credit Cards</p>
             <p>Loans</p>
-            
           </div>
           <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
             <p>$ 1,733.93</p>
             <p>$ 23,278.35</p>
-            
           </div>
         </div>
       </div>
@@ -70,10 +70,16 @@ export default function NetWorth(props: Props) {
         </p>
       </div>
       <div className="text-slate-200 border-2 border-lime-600 rounded-lg bg-slate-400 col-span-2">
-        {props.accountData &&
-          props.accountData.map((acc) => (
+        {/* {props.accountsData &&
+          props.accountsData.map((acc) => (
             <p key={acc.account_id}>
               {acc.name} | {acc.balances.current}
+            </p>
+          ))} */}
+        {props.accountsData &&
+          props.accountsData.map((acc, index) => (
+            <p key={index}>
+              {index + 1} | {acc.request_id} | {acc.accounts.length}
             </p>
           ))}
       </div>

@@ -26,6 +26,7 @@ export default protectedHandler.get(async function (req, res, next) {
   try {
     const session = await getSession({ req });
     const { email } = session?.user!;
+    var accountsArray = [];
 
     if (session) {
       const userPlaidItems = await prisma.user.findUnique({
@@ -36,11 +37,19 @@ export default protectedHandler.get(async function (req, res, next) {
           plaidItems: true,
         },
       });
-      const accessToken = userPlaidItems?.plaidItems[0].accessToken;
-      const accountsResponse = await client.accountsGet({
-        access_token: accessToken!,
-      });
-      res.status(200).json(accountsResponse.data);
+      if (userPlaidItems !== null) {
+        for (var i = 0; i < userPlaidItems!.plaidItems.length; i++) {
+          const accessToken = userPlaidItems?.plaidItems[i].accessToken;
+          const accountsResponse = await client.accountsGet({
+            access_token: accessToken!,
+          });
+          accountsArray.push(accountsResponse.data);
+        }
+        // console.log(accountsArray);
+        res.status(200).json(accountsArray);
+      } else {
+        res.status(404).json({ message: "No Plaid Items" });
+      }
     }
     res.status(404).json({ message: "No session" });
   } catch (error) {

@@ -11,7 +11,7 @@ const Dashboard: NextPage = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
   const [content, setContent] = useState();
-  const [accountData, setAccountData] = useState<any[]>([]);
+  const [accountsData, setAccountsData] = useState<any[]>([]);
   const [transactionData, setTransactionData] = useState<any[]>([]);
 
   // Fetch content from protected route
@@ -27,8 +27,8 @@ const Dashboard: NextPage = () => {
         method: "GET",
       });
       const data = await response.json();
-      const accounts = data.accounts;
-      setAccountData(Array.from(accounts));
+      console.log(data)
+      setAccountsData(data);
 
       const transResponse = await fetch("/api/plaid/get_transactions", {
         method: "GET",
@@ -47,9 +47,6 @@ const Dashboard: NextPage = () => {
     // getAccounts();
   }, [session]);
 
-  useEffect(() => {
-    console.log(transactionData)
-  }, [transactionData]);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;
@@ -96,7 +93,7 @@ const Dashboard: NextPage = () => {
               <span className="text-lime-200">{session.user?.name?.split(" ")[0]}&rsquo;s </span> Dashboard
             </h1>
           </div>
-          <NetWorth content={content} accountData={accountData} />
+          <NetWorth content={content} accountsData={accountsData} />
           <RecentTransactions transactionData={transactionData}/>
         </div>
       </div>
