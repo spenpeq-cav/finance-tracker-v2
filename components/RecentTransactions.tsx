@@ -1,20 +1,39 @@
+import React, { useEffect, useState } from "react";
+
 interface Props {
   transactionData: any[];
 }
 
 export default function RecentTransactions(props: Props) {
+  const [sum, setSum] = useState(String)
+  
+  useEffect(() => {
+    const transactionSum = () => {
+      var sum = 0.0;
+      for (var i = 0; i < props.transactionData.length; i++) {
+        sum += props.transactionData[i].amount;
+      }
+      const sumString = sum.toLocaleString()
+      setSum(sumString)
+    };
+    
+    transactionSum();
+    console.log("useEffect")
+  }, [props.transactionData]);
+
   return (
     <>
       <div className="col-span-4 py-6">
         <h1 className="text-slate-200 font-bold text-4xl text-left">
           Recent Transactions
         </h1>
-        <p className="text-slate-400 text-xl">
+        <p className="text-slate-400 text-xl text-left py-2">
           A table of your recent transactions.
         </p>
+        <h2 className="text-slate-400 text-3xl text-left pt-4">Total: $ {sum}</h2>
       </div>
       <div className="text-slate-900 border-4 border-lime-600 rounded-lg bg-slate-400 col-span-4 w-full">
-        <table className="table-auto w-full">
+        <table className="table-fixed w-full">
           <thead className="font-bold bg-slate-400">
             <tr className="pb-4">
               <th className="px-6 py-2 text-lg text-slate-900">Date</th>

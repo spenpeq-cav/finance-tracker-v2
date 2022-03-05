@@ -44,8 +44,8 @@ export default protectedHandler.get(async function (req, res, next) {
       const accessToken = userPlaidItems?.plaidItems[0].accessToken;
       const request: TransactionsGetRequest = {
         access_token: accessToken!,
-        start_date: "2020-02-01",
-        end_date: "2022-01-01",
+        start_date: "2022-02-01",
+        end_date: "2022-03-01",
       };
       try {
         const response = await client.transactionsGet(request);
