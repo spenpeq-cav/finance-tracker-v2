@@ -28,7 +28,15 @@ const Home: NextPage = () => {
             View all your financial data in one place.
           </p>
           <p className="text-sm font-semibold text-slate-300">
-            Made possible via the Plaid API. <a href="https://plaid.com/" className="text-lime-500 underline" target="_blank" rel="noopener noreferrer">Learn More</a>
+            Made possible via the Plaid API.{" "}
+            <a
+              href="https://plaid.com/"
+              className="text-lime-500 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </a>
           </p>
 
           {loading && (
@@ -55,15 +63,27 @@ const Home: NextPage = () => {
             {session?.user && (
               <>
                 <div className="p-4 text-slate-100 relative">
-                  Signed in as <strong>{session.user.email}</strong>
-                  <br />
-                  <strong>{session.user.name}</strong>
-                  <br />
-                  <Image
-                    src={session.user.image!}
-                    alt="Profile image"
-                    layout="fill"
-                  />
+                  <div>
+                    <Image
+                      src={session.user.image!}
+                      alt="Profile image"
+                      layout="fixed"
+                      width={75}
+                      height={75}
+                    />
+                  </div>
+
+                  <div>
+                    <p>
+                      Signed in as{" "}
+                      <strong className="text-lime-400">
+                        {session.user.name}
+                      </strong>
+                    </p>
+                    <p>
+                      <strong>{session.user.email}</strong>
+                    </p>
+                  </div>
                 </div>
                 <a
                   href={`/api/auth/signout`}
