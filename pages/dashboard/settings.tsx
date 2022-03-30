@@ -1,52 +1,12 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import AccessDenied from "../components/AccessDenied";
+import AccessDenied from "../../components/AccessDenied";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import NetWorth from "../components/NetWorth";
-import RecentTransactions from "../components/RecentTransactions";
 
-const Dashboard: NextPage = () => {
+const Settings: NextPage = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
-  const [content, setContent] = useState();
-  const [accountsData, setAccountsData] = useState<any[]>([]);
-  const [transactionData, setTransactionData] = useState<any[]>([]);
-
-  // Fetch content from protected route
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/api/examples/protected");
-      const json = await res.json();
-      if (json.content) {
-        setContent(json.content);
-      }
-
-      const response = await fetch("/api/plaid/get_accounts", {
-        method: "GET",
-      });
-      const data = await response.json();
-      console.log(data)
-      setAccountsData(data);
-
-      const transResponse = await fetch("/api/plaid/get_transactions", {
-        method: "GET",
-      });
-      const transData = await transResponse.json();
-      setTransactionData(transData);
-    };
-    // const getAccounts = async () => {
-    //   const response = await fetch("/api/get_accounts", {
-    //     method: "GET",
-    //   });
-    //   const data = await response.json();
-    //   setAccountData(data);
-    // };
-    fetchData();
-    // getAccounts();
-  }, [session]);
-
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;
@@ -90,14 +50,15 @@ const Dashboard: NextPage = () => {
         <div className="grid grid-cols-4 gap-4 justify-items-start">
           <div className="col-span-4 border-b-2 border-lime-600 pb-6">
             <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">{session.user?.name?.split(" ")[0]}&rsquo;s </span> Dashboard
+              <span className="text-lime-200">
+                {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
+              </span>{" "}
+              Settings
             </h1>
           </div>
-          <NetWorth content={content} accountsData={accountsData} />
-          <RecentTransactions transactionData={transactionData}/>
         </div>
       </div>
     </>
   );
 };
-export default Dashboard;
+export default Settings;

@@ -1,52 +1,29 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import AccessDenied from "../components/AccessDenied";
+import AccessDenied from "../../components/AccessDenied";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import NetWorth from "../components/NetWorth";
-import RecentTransactions from "../components/RecentTransactions";
 
-const Dashboard: NextPage = () => {
+const Accounts: NextPage = () => {
   const { data: session, status } = useSession();
   const loading = status === "loading";
-  const [content, setContent] = useState();
   const [accountsData, setAccountsData] = useState<any[]>([]);
-  const [transactionData, setTransactionData] = useState<any[]>([]);
+  const [totalInst, setTotalInst] = useState<any>();
 
-  // Fetch content from protected route
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/examples/protected");
-      const json = await res.json();
-      if (json.content) {
-        setContent(json.content);
-      }
-
       const response = await fetch("/api/plaid/get_accounts", {
         method: "GET",
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setAccountsData(data);
-
-      const transResponse = await fetch("/api/plaid/get_transactions", {
-        method: "GET",
-      });
-      const transData = await transResponse.json();
-      setTransactionData(transData);
     };
-    // const getAccounts = async () => {
-    //   const response = await fetch("/api/get_accounts", {
-    //     method: "GET",
-    //   });
-    //   const data = await response.json();
-    //   setAccountData(data);
-    // };
-    fetchData();
-    // getAccounts();
-  }, [session]);
 
+    fetchData();
+
+    setTotalInst(accountsData.length);
+  }, [session, accountsData.length]);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;
@@ -90,14 +67,38 @@ const Dashboard: NextPage = () => {
         <div className="grid grid-cols-4 gap-4 justify-items-start">
           <div className="col-span-4 border-b-2 border-lime-600 pb-6">
             <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">{session.user?.name?.split(" ")[0]}&rsquo;s </span> Dashboard
+              <span className="text-lime-200">
+                {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
+              </span>{" "}
+              Accounts
             </h1>
           </div>
-          <NetWorth content={content} accountsData={accountsData} />
-          <RecentTransactions transactionData={transactionData}/>
+
+          <div className="col-span-4 py-6">
+            <h1 className="text-slate-200 font-bold text-4xl text-left">
+              {"Total Linked Institutions: " + totalInst}
+            </h1>
+          </div>
+
+          {accountsData &&
+            accountsData.map((acc, index) => (
+              <div
+                key={index}
+                className="border-2 border-lime-600 rounded-lg bg-slate-400 p-4 w-full col-span-4 text-left px-8"
+              >
+                <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
+                  {index + 1} | {acc.request_id} | {acc.accounts.length} | {acc.item.institution_id} 
+                </h1>
+                { acc.accounts.map((item: any, index: any) => (
+                  <p key={index}>
+                    {item.name} | {item.account_id} | {item.balances.current}
+                  </p>
+                ))}
+              </div>
+            ))}
         </div>
       </div>
     </>
   );
 };
-export default Dashboard;
+export default Accounts;
