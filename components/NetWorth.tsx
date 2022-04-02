@@ -1,9 +1,44 @@
+import { useState, useEffect } from "react";
+
 interface Props {
   content: undefined;
   accountsData: any[];
 }
 
 export default function NetWorth(props: Props) {
+  const [networth, setNetworth] = useState<number>(0.0);
+  const [totalAssests, setTotalAssest] = useState<number>(0.0);
+  const [totalLiabilites, setTotalLiabilites] = useState<number>(0.0);
+  
+  useEffect(() => {
+    var data = props.accountsData;
+    const assetTypes = ["depository", "investment"];
+    const liaTypes = ["credit", "loan"];
+    var totalA = 0.0;
+    var totalL = 0.0;
+
+    if (data.length > 0) {
+      for (var i = 0; i < data.length; i++) {
+        for (var j = 0; j < data[i].accounts.length; j++) {
+          if (
+            data[i].accounts[j].type === assetTypes[0] ||
+            data[i].accounts[j].type === assetTypes[1]
+          ) {
+            totalA += data[i].accounts[j].balances.current;
+          } else if (
+            data[i].accounts[j].type === liaTypes[0] ||
+            data[i].accounts[j].type === liaTypes[1]
+          ) {
+            totalL += data[i].accounts[j].balances.current;
+          }
+        }
+      }
+    }
+    setTotalAssest(totalA);
+    setTotalLiabilites(totalL);
+    setNetworth(totalA - totalL);
+  }, [props.accountsData]);
+
   return (
     <>
       <div className="col-span-4 py-6">
@@ -16,15 +51,16 @@ export default function NetWorth(props: Props) {
       </div>
       <div className="col-span-4 pb-4 text-left">
         <p className="text-slate-400  text-xl uppercase pb-2">
-          Your total accross X accounts
+          Your total accross {props.accountsData.length} accounts
         </p>
         <h1 className="text-slate-100 font-extrabold text-5xl tracking-wider p-4 border-lime-600 border-2 rounded-2xl">
-          $ 213,764.95
+          $ {networth.toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </h1>
       </div>
-      <div className="border-2 border-lime-600 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
+      <div className="border-2 border-lime-300 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
         <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
-          $ 159,245.38
+          ${" "}
+          {totalAssests.toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </h1>
         <h2 className="text-3xl pb-4 text-semibold text-slate-800">Assets</h2>
         <div className="grid grid-cols-2">
@@ -40,9 +76,12 @@ export default function NetWorth(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-2 border-lime-600 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
+      <div className="border-2 border-red-400 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
         <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
-          $ 79,359.38
+          ${" "}
+          {totalLiabilites.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}
         </h1>
         <h2 className="text-3xl pb-4 text-semibold text-slate-800">
           Liabilities
@@ -58,17 +97,7 @@ export default function NetWorth(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-2 border-lime-600 rounded-lg bg-slate-400 p-4 w-full col-span-2">
-        <p className="text-lime-600 text-5xl">$ 75,000</p>
-        <p className="text-rose-600 text-5xl">- 30,000</p>
-        <hr className="text-slate-200 my-2" />
-        <p className="text-lime-400 font-extrabold text-6xl">$ 30,000</p>
-      </div>
-      <div className="border-2 border-lime-600 rounded-lg bg-slate-400 col-span-2">
-        <p className="text-slate-200">
-          <strong>{props.content || "\u00a0"}</strong>
-        </p>
-      </div>
+
       <div className="text-slate-200 border-2 border-lime-600 rounded-lg bg-slate-400 col-span-2">
         {/* {props.accountsData &&
           props.accountsData.map((acc) => (
