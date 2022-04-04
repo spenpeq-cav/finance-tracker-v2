@@ -43,7 +43,7 @@ export default function RecentTransactions(props: Props) {
             </tr>
           </thead>
           <tbody className="text-md text-semibold text-slate-800 bg-slate-200 divide-y divide-slate-600">
-            {props.transactionData &&
+            {props.transactionData.length > 0 &&
               props.transactionData.map((trans) => (
                 <tr
                   key={trans.transaction_id}
