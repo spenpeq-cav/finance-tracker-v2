@@ -13,7 +13,7 @@
   }
   .btn-primary {
     @apply bg-gradient-to-tr from-lime-700 to-lime-500 hover:bg-lime-600
-    focus:ring-lime-500 focus:ring-opacity-50 
+    focus:ring-lime-500 focus:ring-opacity-20 
     active:bg-lime-700 active:text-slate-800 text-slate-900 hover:-translate-y-0.5 font-extrabold;
   }
 
@@ -21,6 +21,10 @@
     @apply bg-slate-600 hover:bg-slate-500
     focus:ring-slate-500 focus:ring-opacity-50 
     active:bg-slate-600 active:text-slate-300 text-slate-200 hover:-translate-y-0.5 font-bold;
+  }
+
+  .btn-disabled {
+    @apply bg-gradient-to-tr from-lime-200 to-lime-100 text-slate-500 font-bold cursor-not-allowed;
   }
 }
 :root {

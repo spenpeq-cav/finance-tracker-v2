@@ -38,13 +38,20 @@ const PlaidLink: React.FC<LinkProps> = (props: LinkProps) => {
       <button
         onClick={() => open()}
         disabled={!ready}
-        className="p-10 text-cyan-900 border-2 border-cyan-500 mt-10 bg-slate-300"
+        className={
+          message !== null
+            ? "btn btn-disabled py-4 px-12"
+            : "btn btn-primary py-4 px-12"
+        }
       >
         Link account
       </button>
-      {accessToken && <p className="text-white">{accessToken}</p>}
-      {itemID && <p className="text-white">{itemID}</p>}
-      {message && <p className="text-white">{message}</p>}
+      
+      {message && (
+        <p className="text-teal-300 font-bold text-2xl text-left py-4">
+          {message}
+        </p>
+      )}
     </>
   );
 };
