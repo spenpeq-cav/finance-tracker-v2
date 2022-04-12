@@ -97,8 +97,8 @@ const Home: NextPage = () => {
                 </a>
               </>
             )}
-            <Link href="/protected">
-              <a className="btn btn-secondary py-4 px-12">Protected</a>
+            <Link href="/dashboard">
+              <a className="btn btn-secondary py-4 px-12">Dashboard</a>
             </Link>
           </div>
         </div>

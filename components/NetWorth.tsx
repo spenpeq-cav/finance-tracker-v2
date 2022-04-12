@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface Props {
   content: undefined;
@@ -11,8 +12,10 @@ export default function NetWorth(props: Props) {
   const [totalLiabilites, setTotalLiabilites] = useState<number>(0.0);
   const [totalCash, setTotalCash] = useState<number>(0.0);
   const [totalInvestments, setTotalInvestments] = useState<number>(0.0);
+  const [totalHome, setTotalHome] = useState<number>(0.0);
   const [totalCredit, setTotalCredit] = useState<number>(0.0);
   const [totalLoans, setTotalLoans] = useState<number>(0.0);
+  const [dataLoading, setDataLoading] = useState<boolean>(true);
 
   useEffect(() => {
     var data = props.accountsData;
@@ -24,6 +27,7 @@ export default function NetWorth(props: Props) {
     var investments = 0.0;
     var credit = 0.0;
     var loans = 0.0;
+    var home = 0.0;
 
     if (data.length > 0) {
       for (var i = 0; i < data.length; i++) {
@@ -43,12 +47,15 @@ export default function NetWorth(props: Props) {
           }
         }
       }
+      home = 1550000.45;
+      setDataLoading(false);
     }
-    setTotalAssest(totalA);
+    setTotalAssest(totalA + home);
     setTotalLiabilites(totalL);
-    setNetworth(totalA - totalL);
+    setNetworth(totalA - totalL + home);
     setTotalCash(cash);
     setTotalInvestments(investments);
+    setTotalHome(home);
     setTotalCredit(credit);
     setTotalLoans(loans);
   }, [props.accountsData]);
@@ -68,13 +75,40 @@ export default function NetWorth(props: Props) {
           Your total accross {props.accountsData.length} institutions
         </p>
         <h1 className="text-slate-100 font-extrabold text-5xl tracking-wider p-4 border-lime-600 border-2 rounded-2xl">
-          $ {networth.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+          <span className={dataLoading ? "hidden" : ""}>
+            ${" "}
+            {networth.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            })}
+          </span>
+
+          <PulseLoader
+            color={"#d9f99d"}
+            loading={dataLoading}
+            css={""}
+            size={25}
+            margin={6}
+            speedMultiplier={1}
+          />
         </h1>
       </div>
       <div className="border-2 border-lime-300 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
         <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
-          ${" "}
-          {totalAssests.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+          <span className={dataLoading ? "hidden" : ""}>
+            ${" "}
+            {totalAssests.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            })}
+          </span>
+
+          <PulseLoader
+            color={"#d9f99d"}
+            loading={dataLoading}
+            css={""}
+            size={15}
+            margin={6}
+            speedMultiplier={1}
+          />
         </h1>
         <h2 className="text-3xl pb-4 text-semibold text-slate-800">Assets</h2>
         <div className="grid grid-cols-2">
@@ -96,16 +130,30 @@ export default function NetWorth(props: Props) {
                 maximumFractionDigits: 2,
               })}
             </p>
-            <p>$ ...</p>
+            <p>${" "}
+              {totalHome.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}</p>
           </div>
         </div>
       </div>
       <div className="border-2 border-red-400 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
         <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
-          ${" "}
-          {totalLiabilites.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}
+          <span className={dataLoading ? "hidden" : ""}>
+            ${" "}
+            {totalLiabilites.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+            })}
+          </span>
+
+          <PulseLoader
+            color={"#d9f99d"}
+            loading={dataLoading}
+            css={""}
+            size={15}
+            margin={6}
+            speedMultiplier={1}
+          />
         </h1>
         <h2 className="text-3xl pb-4 text-semibold text-slate-800">
           Liabilities
@@ -130,21 +178,6 @@ export default function NetWorth(props: Props) {
             </p>
           </div>
         </div>
-      </div>
-
-      <div className="text-slate-200 border-2 border-lime-600 rounded-lg bg-slate-400 col-span-2">
-        {/* {props.accountsData &&
-          props.accountsData.map((acc) => (
-            <p key={acc.account_id}>
-              {acc.name} | {acc.balances.current}
-            </p>
-          ))} */}
-        {props.accountsData.length > 0 &&
-          props.accountsData.map((acc, index) => (
-            <p key={index}>
-              {index + 1} | {acc.request_id} | {acc.accounts.length}
-            </p>
-          ))}
       </div>
     </>
   );
