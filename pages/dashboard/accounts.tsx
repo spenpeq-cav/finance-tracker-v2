@@ -10,7 +10,7 @@ const Accounts: NextPage = () => {
   const loading = status === "loading";
   const [dataLoading, setDataLoading] = useState<boolean>(true);
   const [accountsData, setAccountsData] = useState<any[]>([]);
-  const [totalInst, setTotalInst] = useState<any>();
+  const [totalInst, setTotalInst] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,12 +20,12 @@ const Accounts: NextPage = () => {
       const data = await response.json();
       console.log(data);
       setAccountsData(data);
+      setTotalInst(data.length);
       setDataLoading(false);
     };
 
     fetchData();
-    setTotalInst(accountsData.length);
-  }, [session, accountsData.length]);
+  }, []);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;

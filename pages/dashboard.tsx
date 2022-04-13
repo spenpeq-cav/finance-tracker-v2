@@ -13,7 +13,8 @@ const Dashboard: NextPage = () => {
   const [content, setContent] = useState();
   const [accountsData, setAccountsData] = useState<any[]>([]);
   const [transactionData, setTransactionData] = useState<any[]>([]);
-  const [transactionDataLoading, setTransactionDataLoading] = useState<boolean>(true)
+  const [transactionDataLoading, setTransactionDataLoading] =
+    useState<boolean>(true);
 
   // Fetch content from protected route
   useEffect(() => {
@@ -28,15 +29,17 @@ const Dashboard: NextPage = () => {
         method: "GET",
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setAccountsData(data);
-
-      const transResponse = await fetch("/api/plaid/get_transactions", {
-        method: "GET",
-      });
-      const transData = await transResponse.json();
-      setTransactionData(transData);
-      setTransactionDataLoading(false)
+      
+      if (data.length > 0) {
+        const transResponse = await fetch("/api/plaid/get_transactions", {
+          method: "GET",
+        });
+        const transData = await transResponse.json();
+        setTransactionData(transData);
+        setTransactionDataLoading(false);
+      }
     };
     // const getAccounts = async () => {
     //   const response = await fetch("/api/get_accounts", {
@@ -48,7 +51,6 @@ const Dashboard: NextPage = () => {
     fetchData();
     // getAccounts();
   }, [session]);
-
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== "undefined" && loading) return null;
@@ -92,11 +94,17 @@ const Dashboard: NextPage = () => {
         <div className="grid grid-cols-4 gap-4 justify-items-start">
           <div className="col-span-4 border-b-2 border-lime-600 pb-6">
             <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">{session.user?.name?.split(" ")[0]}&rsquo;s </span> Dashboard
+              <span className="text-lime-200">
+                {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
+              </span>{" "}
+              Dashboard
             </h1>
           </div>
           <NetWorth content={content} accountsData={accountsData} />
-          <RecentTransactions transactionData={transactionData} isLoading={transactionDataLoading} />
+          <RecentTransactions
+            transactionData={transactionData}
+            isLoading={transactionDataLoading}
+          />
         </div>
       </div>
     </>

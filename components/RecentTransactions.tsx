@@ -22,8 +22,6 @@ export default function RecentTransactions(props: Props) {
     };
 
     transactionSum();
-
-    console.log("useEffect");
   }, [props.transactionData, props.isLoading]);
 
   return (
