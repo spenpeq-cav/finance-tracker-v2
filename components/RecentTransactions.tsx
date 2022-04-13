@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 interface Props {
   transactionData: any[];
+  isLoading: boolean;
 }
 
 export default function RecentTransactions(props: Props) {
-  const [sum, setSum] = useState(String)
-  
+  const [sum, setSum] = useState<String>("");
+  const [dataLoading, setDataLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const transactionSum = () => {
       var sum = 0.0;
       for (var i = 0; i < props.transactionData.length; i++) {
         sum += props.transactionData[i].amount;
       }
-      const sumString = sum.toLocaleString()
-      setSum(sumString)
+      const sumString = sum.toLocaleString();
+      setSum(sumString);
+      setDataLoading(props.isLoading);
     };
-    
+
     transactionSum();
-    console.log("useEffect")
+
+    console.log("useEffect");
   }, [props.transactionData]);
 
   return (
@@ -30,7 +35,17 @@ export default function RecentTransactions(props: Props) {
         <p className="text-slate-400 text-xl text-left py-2">
           A table of your recent transactions.
         </p>
-        <h2 className="text-slate-400 text-3xl text-left pt-4">Total: $ {sum}</h2>
+        <h2 className="text-slate-400 text-3xl text-left pt-4">
+          Total: <span className={dataLoading ? "hidden" : ""}>$ {sum}</span>
+          <PulseLoader
+            color={"#d9f99d"}
+            loading={dataLoading}
+            css={""}
+            size={15}
+            margin={4}
+            speedMultiplier={1}
+          />
+        </h2>
       </div>
       <div className="text-slate-900 border-4 border-lime-600 rounded-lg bg-slate-400 col-span-4 w-full">
         <table className="table-fixed w-full">

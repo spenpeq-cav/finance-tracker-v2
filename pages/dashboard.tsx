@@ -13,6 +13,7 @@ const Dashboard: NextPage = () => {
   const [content, setContent] = useState();
   const [accountsData, setAccountsData] = useState<any[]>([]);
   const [transactionData, setTransactionData] = useState<any[]>([]);
+  const [transactionDataLoading, setTransactionDataLoading] = useState<boolean>(true)
 
   // Fetch content from protected route
   useEffect(() => {
@@ -35,6 +36,7 @@ const Dashboard: NextPage = () => {
       });
       const transData = await transResponse.json();
       setTransactionData(transData);
+      setTransactionDataLoading(false)
     };
     // const getAccounts = async () => {
     //   const response = await fetch("/api/get_accounts", {
@@ -94,7 +96,7 @@ const Dashboard: NextPage = () => {
             </h1>
           </div>
           <NetWorth content={content} accountsData={accountsData} />
-          <RecentTransactions transactionData={transactionData}/>
+          <RecentTransactions transactionData={transactionData} isLoading={transactionDataLoading} />
         </div>
       </div>
     </>
