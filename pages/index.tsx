@@ -21,17 +21,17 @@ const Home: NextPage = () => {
 
       <main>
         <div className="pt-60 m-auto">
-          <h1 className="text-7xl font-extrabold text-slate-50 py-4 tracking-wide">
+          <h1 className="text-7xl font-extrabold text-teal-500 py-4 tracking-wider">
             Finance Tracker
           </h1>
-          <p className="text-xl font-semibold text-slate-300 pb-2">
+          <p className="text-xl font-semibold text-neutral-200 pb-2">
             View all your financial data in one place.
           </p>
-          <p className="text-sm font-semibold text-slate-300">
+          <p className="text-sm font-semibold text-neutral-300">
             Made possible via the Plaid API.{" "}
             <a
               href="https://plaid.com/"
-              className="text-lime-500 underline"
+              className="text-teal-500 underline"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -41,13 +41,13 @@ const Home: NextPage = () => {
 
           {loading && (
             <>
-              <h1 className="p-4 text-slate-100">LOADING ...</h1>
+              <h1 className="p-4 text-neutral-100">LOADING ...</h1>
             </>
           )}
           <div className="m-auto space-x-4">
             {!session && (
               <>
-                <p className="p-4 text-slate-100">You are not signed in.</p>
+                <p className="p-4 text-neutral-100">You are not signed in.</p>
                 <a
                   href={`/api/auth/signin`}
                   className="btn btn-primary py-4 px-12"
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
             )}
             {session?.user && (
               <>
-                <div className="p-4 text-slate-100 relative">
+                <div className="p-4 text-neutral-100 relative">
                   <div>
                     <Image
                       src={session.user.image!}
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
                   <div>
                     <p>
                       Signed in as{" "}
-                      <strong className="text-lime-400">
+                      <strong className="text-teal-500">
                         {session.user.name}
                       </strong>
                     </p>

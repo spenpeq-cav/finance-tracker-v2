@@ -46,9 +46,9 @@ const Accounts: NextPage = () => {
 
       <div className="rounded-lg relative h-full w-content-width left-60 p-24">
         <div className="grid grid-cols-4 gap-4 justify-items-start">
-          <div className="col-span-4 border-b-2 border-lime-600 pb-6">
-            <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">
+          <div className="col-span-4 border-b-4 border-teal-700 pb-6">
+            <h1 className="text-neutral-200 font-extrabold text-5xl tracking-wider">
+              <span className="text-teal-400">
                 {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
               </span>{" "}
               Accounts
@@ -56,7 +56,7 @@ const Accounts: NextPage = () => {
           </div>
 
           <div className="col-span-4 py-6">
-            <h1 className="text-slate-200 font-bold text-4xl text-left">
+            <h1 className="text-neutral-200 font-bold text-4xl text-left">
               {"Total Linked Institutions: " + totalInst}
             </h1>
             {/* <BounceLoader color={"#a3e635"} loading={dataLoading} css={""} size={60} speedMultiplier={2} /> */}
@@ -64,7 +64,7 @@ const Accounts: NextPage = () => {
 
           <div className="col-span-4 text-center">
             <CircleLoader
-              color={"#a3e635"}
+              color={"#14b8a6"}
               loading={dataLoading}
               css={""}
               size={120}
@@ -76,14 +76,14 @@ const Accounts: NextPage = () => {
             accountsData.map((acc, index) => (
               <div
                 key={index}
-                className="border-2 border-lime-600 rounded-lg bg-slate-400 p-4 w-full col-span-4 text-left px-8"
+                className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 w-full col-span-2 text-left px-8"
               >
-                <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
+                <h1 className="text-4xl py-4 font-bold text-neutral-100 tracking-wider">
                   {index + 1} | {acc.request_id} | {acc.accounts.length} |{" "}
                   {acc.item.institution_id}
                 </h1>
                 {acc.accounts.map((item: any, index: any) => (
-                  <p key={index}>
+                  <p key={index} className="text-neutral-200">
                     {item.name} | {item.account_id} | {item.balances.current}
                   </p>
                 ))}

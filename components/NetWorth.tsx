@@ -63,18 +63,18 @@ export default function NetWorth(props: Props) {
   return (
     <>
       <div className="col-span-4 py-6">
-        <h1 className="text-slate-200 font-bold text-4xl text-left">
+        <h1 className="text-neutral-100 font-bold text-4xl text-left tracking-wider">
           Net Worth
         </h1>
-        <p className="text-slate-400 text-xl">
+        <p className="text-neutral-200 text-xl">
           A summary of your assets and liabilities.
         </p>
       </div>
       <div className="col-span-4 pb-4 text-left">
-        <p className="text-slate-400  text-xl uppercase pb-2">
+        <p className="text-neutral-200  text-xl uppercase pb-2">
           Your total accross {props.accountsData.length} institutions
         </p>
-        <h1 className="text-slate-100 font-extrabold text-5xl tracking-wider p-4 border-lime-600 border-2 rounded-2xl">
+        <h1 className="text-neutral-100 font-extrabold text-5xl tracking-wider p-4 border-lime-600 border-2 rounded-2xl">
           <span className={dataLoading ? "hidden" : ""}>
             ${" "}
             {networth.toLocaleString(undefined, {
@@ -83,7 +83,7 @@ export default function NetWorth(props: Props) {
           </span>
 
           <PulseLoader
-            color={"#d9f99d"}
+            color={"#14b8a6"}
             loading={dataLoading}
             css={""}
             size={25}
@@ -92,8 +92,8 @@ export default function NetWorth(props: Props) {
           />
         </h1>
       </div>
-      <div className="border-2 border-lime-300 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
-        <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
+      <div className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 w-full col-span-2 text-left px-8">
+        <h1 className="text-4xl py-4 font-bold text-neutral-200 tracking-wider">
           <span className={dataLoading ? "hidden" : ""}>
             ${" "}
             {totalAssests.toLocaleString(undefined, {
@@ -102,7 +102,7 @@ export default function NetWorth(props: Props) {
           </span>
 
           <PulseLoader
-            color={"#d9f99d"}
+            color={"#14b8a6"}
             loading={dataLoading}
             css={""}
             size={15}
@@ -110,14 +110,14 @@ export default function NetWorth(props: Props) {
             speedMultiplier={1}
           />
         </h1>
-        <h2 className="text-3xl pb-4 text-semibold text-slate-800">Assets</h2>
+        <h2 className="text-3xl pb-4 font-semibold text-lime-400 tracking-wide">Assets</h2>
         <div className="grid grid-cols-2">
-          <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
+          <div className="text-lg pb-4 font-semibold text-neutral-300 tracking-wider">
             <p>Cash</p>
             <p>Investments</p>
             <p>House</p>
           </div>
-          <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
+          <div className="text-lg pb-4 font-semibold text-neutral-300 tracking-wider">
             <p>
               ${" "}
               {totalCash.toLocaleString(undefined, {
@@ -137,8 +137,8 @@ export default function NetWorth(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-2 border-red-400 rounded-lg bg-slate-400 p-4 w-full col-span-2 text-left px-8">
-        <h1 className="text-4xl py-4 font-bold text-slate-900 tracking-wider">
+      <div className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 w-full col-span-2 text-left px-8">
+        <h1 className="text-4xl py-4 font-bold text-neutral-200 tracking-wider">
           <span className={dataLoading ? "hidden" : ""}>
             ${" "}
             {totalLiabilites.toLocaleString(undefined, {
@@ -147,7 +147,7 @@ export default function NetWorth(props: Props) {
           </span>
 
           <PulseLoader
-            color={"#d9f99d"}
+            color={"#14b8a6"}
             loading={dataLoading}
             css={""}
             size={15}
@@ -155,15 +155,15 @@ export default function NetWorth(props: Props) {
             speedMultiplier={1}
           />
         </h1>
-        <h2 className="text-3xl pb-4 text-semibold text-slate-800">
+        <h2 className="text-3xl pb-4 font-semibold text-red-500 tracking-wide">
           Liabilities
         </h2>
         <div className="grid grid-cols-2">
-          <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
+          <div className="text-lg pb-4 font-semibold text-neutral-300 tracking-wider">
             <p>Credit Cards</p>
             <p>Loans</p>
           </div>
-          <div className="text-lg pb-4 text-semibold text-slate-700 tracking-wider">
+          <div className="text-lg pb-4 font-semibold text-neutral-300 tracking-wider">
             <p>
               ${" "}
               {totalCredit.toLocaleString(undefined, {

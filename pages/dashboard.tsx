@@ -70,9 +70,9 @@ const Dashboard: NextPage = () => {
 
       <div className="rounded-lg relative h-full w-content-width left-60 p-24">
         <div className="grid grid-cols-4 gap-4 justify-items-start">
-          <div className="col-span-4 border-b-2 border-lime-600 pb-6">
-            <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">
+          <div className="col-span-4 border-b-4 border-teal-700 pb-6">
+            <h1 className="text-neutral-200 font-extrabold text-5xl tracking-wider">
+              <span className="text-teal-400">
                 {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
               </span>{" "}
               Dashboard

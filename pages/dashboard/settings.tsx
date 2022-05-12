@@ -38,25 +38,25 @@ const Settings: NextPage = () => {
 
       <div className="rounded-lg relative h-full w-content-width left-60 p-24">
         <div className="grid grid-cols-4 gap-2 justify-items-start">
-          <div className="col-span-4 border-b-2 border-lime-600 pb-6">
-            <h1 className="text-slate-200 font-extrabold text-5xl">
-              <span className="text-lime-200">
+          <div className="col-span-4 border-b-4 border-teal-700 pb-6">
+            <h1 className="text-neutral-200 font-extrabold text-5xl tracking-wider">
+              <span className="text-teal-400">
                 {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
               </span>{" "}
               Settings
             </h1>
           </div>
-          <div className="border-b-2 border-lime-600 col-span-4 py-6 text-left">
+          <div className="border-b-4 border-teal-700 col-span-4 py-6 text-left">
             <div className="col-span-4 py-6">
-              <h1 className="text-slate-200 font-bold text-4xl text-left">
+              <h1 className="text-neutral-200 font-bold text-4xl text-left">
                 Add another account
               </h1>
-              <p className="text-slate-400 text-xl text-left">
+              <p className="text-neutral-400 text-xl text-left">
                 Connect with Plaid
               </p>
             </div>
             <div className="col-span-4 pb-6">
-              <p className="text-slate-200 text-xl text-left col-span-4 pb-4">
+              <p className="text-neutral-200 text-xl text-left col-span-4 pb-4">
                 Step 1. Generate link token
               </p>
               <button
@@ -75,7 +75,7 @@ const Settings: NextPage = () => {
             {/* {linkToken && <p className="text-white">{linkToken}</p>} */}
             {linkToken != null ? (
               <div className="col-span-4 text-left">
-                <p className="text-slate-200 text-xl text-left pb-4">
+                <p className="text-neutral-200 text-xl text-left pb-4">
                   Step 2. Link your account
                 </p>
                 <PlaidLink linkToken={linkToken} />
