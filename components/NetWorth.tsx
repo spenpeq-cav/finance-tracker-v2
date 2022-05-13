@@ -47,7 +47,7 @@ export default function NetWorth(props: Props) {
           }
         }
       }
-      home = 1550000.45;
+      home = 550000.45;
       setDataLoading(false);
     }
     setTotalAssest(totalA + home);

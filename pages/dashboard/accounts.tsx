@@ -76,16 +76,30 @@ const Accounts: NextPage = () => {
             accountsData.map((acc, index) => (
               <div
                 key={index}
-                className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 col-span-4 text-center w-1/2"
+                className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 col-span-4 text-left w-5/12 mb-4"
               >
-                <h1 className="text-4xl py-4 font-bold text-neutral-100 tracking-wider">
-                  {index + 1} | {acc.request_id} | {acc.accounts.length} |{" "}
+                <h1 className="text-4xl font-bold text-neutral-100 tracking-wider">
                   {acc.item.institution_id}
                 </h1>
-                {acc.accounts.map((item: any, index: any) => (
-                  <p key={index} className="text-neutral-200">
-                    {item.name} | {item.account_id} | {item.balances.current}
-                  </p>
+                <p className="text-lg border-b-2 border-teal-700 text-neutral-300 tracking-wide pb-2">
+                  Accounts: {acc.accounts.length}
+                </p>
+
+                {acc.accounts.map((item: any) => (
+                  <div
+                    key={index}
+                    className="text-neutral-300 pt-2 text-lg flex"
+                  >
+                    <p className="font-bold tracking-widest flex-auto">
+                      {item.name}
+                    </p>
+                    <p className="tracking-wider font-semibold flex-auto text-right">
+                      ${" "}
+                      {item.balances.current.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
+                  </div>
                 ))}
               </div>
             ))}

@@ -63,26 +63,28 @@ const Home: NextPage = () => {
             {session?.user && (
               <>
                 <div className="p-4 text-neutral-100 relative">
-                  <div>
-                    <Image
-                      src={session.user.image!}
-                      alt="Profile image"
-                      layout="fixed"
-                      width={75}
-                      height={75}
-                    />
-                  </div>
-
-                  <div>
-                    <p>
-                      Signed in as{" "}
-                      <strong className="text-teal-500">
-                        {session.user.name}
-                      </strong>
-                    </p>
-                    <p>
-                      <strong>{session.user.email}</strong>
-                    </p>
+                  <div className="flex justify-center">
+                    <div className="pr-2">
+                      <Image
+                        src={session.user.image!}
+                        alt="Profile image"
+                        layout="fixed"
+                        width={55}
+                        height={55}
+                        className="rounded-xl "
+                      />
+                    </div>
+                    <div className="text-left">
+                      <p>
+                        Signed in as{" "}
+                        <strong className="text-teal-500">
+                          {session.user.name}
+                        </strong>
+                      </p>
+                      <p>
+                        <strong>{session.user.email}</strong>
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <a
