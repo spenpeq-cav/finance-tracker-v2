@@ -76,7 +76,7 @@ const Accounts: NextPage = () => {
             accountsData.map((acc, index) => (
               <div
                 key={index}
-                className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 w-full col-span-2 text-left px-8"
+                className="border-2 border-teal-600 rounded-lg bg-neutral-800 p-4 col-span-4 text-center w-1/2"
               >
                 <h1 className="text-4xl py-4 font-bold text-neutral-100 tracking-wider">
                   {index + 1} | {acc.request_id} | {acc.accounts.length} |{" "}

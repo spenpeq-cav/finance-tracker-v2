@@ -36,7 +36,7 @@ export default function RecentTransactions(props: Props) {
         <h2 className="text-neutral-300 text-3xl text-left pt-4 tracking-wide">
           Total: <span className={dataLoading ? "hidden" : ""}>${sum}</span>
           <PulseLoader
-            color={"#d9f99d"}
+            color={"#14b8a6"}
             loading={dataLoading}
             css={""}
             size={15}
