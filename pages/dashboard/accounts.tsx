@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import AccessDenied from "../../components/AccessDenied";
 import SideBarMenu from "../../components/SideBarMenu";
 import CircleLoader from "react-spinners/CircleLoader";
+import TopSection from "../../components/TopSection";
 
 const Accounts: NextPage = () => {
   const { data: session, status } = useSession();
@@ -46,15 +47,7 @@ const Accounts: NextPage = () => {
 
       <div className="rounded-lg relative h-full w-content-width left-60 p-24">
         <div className="grid grid-cols-4 gap-4 justify-items-start">
-          <div className="col-span-4 border-b-4 border-teal-700 pb-6">
-            <h1 className="text-neutral-200 font-extrabold text-5xl tracking-wider">
-              <span className="text-teal-400">
-                {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
-              </span>{" "}
-              Accounts
-            </h1>
-          </div>
-
+          <TopSection />
           <div className="col-span-4 py-6">
             <h1 className="text-neutral-200 font-bold text-4xl text-left">
               {"Total Linked Institutions: " + totalInst}
@@ -85,9 +78,9 @@ const Accounts: NextPage = () => {
                   Accounts: {acc.accounts.length}
                 </p>
 
-                {acc.accounts.map((item: any) => (
+                {acc.accounts.map((item: any, j: number) => (
                   <div
-                    key={index}
+                    key={j}
                     className="text-neutral-300 pt-2 text-lg flex"
                   >
                     <p className="font-bold tracking-widest flex-auto">

@@ -5,6 +5,7 @@ import AccessDenied from "../components/AccessDenied";
 import NetWorth from "../components/NetWorth";
 import RecentTransactions from "../components/RecentTransactions";
 import SideBarMenu from "../components/SideBarMenu";
+import TopSection from "../components/TopSection";
 
 const Dashboard: NextPage = () => {
   const { data: session, status } = useSession();
@@ -70,14 +71,7 @@ const Dashboard: NextPage = () => {
 
       <div className="rounded-lg relative h-full w-content-width left-60 p-24">
         <div className="grid grid-cols-4 gap-4 justify-items-start">
-          <div className="col-span-4 border-b-4 border-teal-700 pb-6">
-            <h1 className="text-neutral-200 font-extrabold text-5xl tracking-wider">
-              <span className="text-teal-400">
-                {session.user?.name?.split(" ")[0]}&rsquo;s{" "}
-              </span>{" "}
-              Dashboard
-            </h1>
-          </div>
+          <TopSection />
           <NetWorth content={content} accountsData={accountsData} />
           <RecentTransactions
             transactionData={transactionData}

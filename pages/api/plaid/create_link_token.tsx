@@ -16,7 +16,7 @@ export default handler.post(async (req, res) => {
       client_user_id: "1",
     },
     client_name: "Plaid Test App",
-    products: [Products.Auth, Products.Transactions],
+    products: [Products.Auth, Products.Transactions, Products.Assets, Products.Investments],
     language: "en",
     // webhook: "https://webhook.example.com",
     // redirect_uri: "https://domainname.com/oauth-page.html",
