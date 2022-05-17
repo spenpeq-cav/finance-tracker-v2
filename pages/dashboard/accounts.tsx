@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import AccessDenied from "../../components/AccessDenied";
 import SideBarMenu from "../../components/SideBarMenu";
-import CircleLoader from "react-spinners/CircleLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import TopSection from "../../components/TopSection";
 
 const Accounts: NextPage = () => {
@@ -56,11 +56,12 @@ const Accounts: NextPage = () => {
           </div>
 
           <div className="col-span-4 text-center">
-            <CircleLoader
+            <BeatLoader
               color={"#14b8a6"}
               loading={dataLoading}
               css={""}
-              size={120}
+              size={25}
+              margin={12}
               speedMultiplier={1}
             />
           </div>
@@ -79,10 +80,7 @@ const Accounts: NextPage = () => {
                 </p>
 
                 {acc.accounts.map((item: any, j: number) => (
-                  <div
-                    key={j}
-                    className="text-neutral-300 pt-2 text-lg flex"
-                  >
+                  <div key={j} className="text-neutral-300 pt-2 text-lg flex">
                     <p className="font-bold tracking-widest flex-auto">
                       {item.name}
                     </p>

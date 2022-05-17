@@ -18,7 +18,7 @@
   }
 
   .btn-secondary {
-    @apply bg-teal-700 hover:bg-teal-600
+    @apply bg-teal-600 hover:bg-teal-700
     focus:ring-teal-500 focus:ring-opacity-50 
     active:bg-teal-600 active:text-teal-200 text-neutral-900 hover:-translate-y-0.5 font-extrabold;
   }

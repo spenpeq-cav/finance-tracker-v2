@@ -47,10 +47,10 @@ const RemoveAccount = () => {
 
   return (
     <div className="col-span-4 py-6">
-      <h1 className="text-slate-200 font-bold text-4xl text-left">
+      <h1 className="text-neutral-200 font-bold text-4xl text-left">
         Remove an Account
       </h1>
-      <p className="text-slate-400 text-xl text-left">
+      <p className="text-neutral-400 text-xl text-left">
         Remove one of your accounts
       </p>
       <div className="col-span-4 py-6 text-left">
@@ -70,7 +70,7 @@ const RemoveAccount = () => {
           </p>
 
           <BeatLoader
-            color={"#a3e635"}
+            color={"#14b8a6"}
             loading={dataLoading}
             css={""}
             size={25}
@@ -82,12 +82,12 @@ const RemoveAccount = () => {
             accountsData.map((acc, index) => (
               <button
                 key={index}
-                className="border-2 border-rose-600 rounded-lg bg-rose-200 w-1/2 col-span-4 text-center m-2 hover:bg-rose-400 duration-200 ease-in-out"
+                className="border-2 border-teal-600 rounded-lg bg-neutral-800 hover:border-rose-600 w-3/4 col-span-4 text-center m-2 hover:bg-rose-500 duration-200 ease-in-out"
                 value={acc.item.item_id}
                 id={String(index)}
                 onClick={handleRemove}
               >
-                <h1 className="text-xl py-2 font-bold text-slate-900">
+                <h1 className="text-xl py-2 font-bold text-neutral-300">
                   {acc.item.institution_id}
                 </h1>
               </button>
